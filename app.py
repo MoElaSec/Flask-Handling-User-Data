@@ -18,7 +18,7 @@ def index():
 @app.route('/query-example')
 def query_example():
     language = request.args.get('language') #if key doesn't exist, returns None
-    framework = request.args.get('framework') #if key doesn't exist, returns a 400, bad request error
+    framework = request.args.get('framework') 
     website = request.args.get('website')
 
     return f'''<h1>The language value is: {language}</h1>
@@ -30,7 +30,7 @@ def query_example():
 def form_example():
     if request.method == 'POST': #this block is only entered when the form is submitted
         language = request.form.get('language') #if doesn't exsits return None
-        framework = request.form['framework'] #if doesn't exsits 404
+        framework = request.form['framework'] #if key doesn't exist, returns a 400, bad request error
 
         return f'''<h1>The language value is: {language}</h1>
                   <h1>The framework value is: {framework}</h1>'''
