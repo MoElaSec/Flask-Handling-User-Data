@@ -46,14 +46,30 @@ def form_example():
 def json_example():
     req_data = request.get_json()
 
-    language = None  #check so if the key is not there the req doesn't fail, you shuold do the same for the other values 
-    if 'language' in req_data: 
-        language = req_data['language']
+    #check so if the key is not there the req doesn't fail
+    language = None
+    framework = None
+    python_version = None
+    example = None
+    boolean_test = None
 
-    framework = req_data['framework']
-    python_version = req_data['version_info']['python'] #two keys are needed because of the nested object
-    example = req_data['examples'][0] #an index is needed because of the array
-    boolean_test = req_data['boolean_test']
+    if request_data:
+        if 'language' in request_data:
+            language = request_data['language']
+
+        if 'framework' in request_data:
+            framework = request_data['framework']
+
+        if 'version_info' in request_data:
+            if 'python' in request_data['version_info']:
+                python_version = request_data['version_info']['python'] # two keys are needed because of the nested object
+
+        if 'examples' in request_data:
+            if (type(request_data['examples']) == list) and (len(request_data['examples']) > 0):
+                example = request_data['examples'][0]  # an index is needed because of the array
+
+        if 'boolean_test' in request_data:
+            boolean_test = request_data['boolean_test']
 
     return f'''
            The language value is: {language}
